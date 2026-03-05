@@ -4,350 +4,155 @@
 
 Este projeto consiste no desenvolvimento de um **aplicativo mobile para Android** voltado à criação de uma **rede social profissional semelhante ao LinkedIn**, com foco na conexão entre **militares, veteranos e empresas**.
 
-A proposta é integrar funcionalidades semelhantes às plataformas:
+A proposta é integrar e unificar funcionalidades das plataformas:
 
-- https://planodechamadas.com.br/
-- https://acheumveterano.com.br/
+- [Plano de Chamadas](https://planodechamadas.com.br/) – preparação do candidato (perfil, documentos, testes, cursos, vagas)
+- [Ache um Veterano](https://acheumveterano.com.br/) – vitrine de talentos e vagas para empresas/recrutadores
 
-O objetivo é facilitar a **transição de militares para o mercado civil**, criando uma plataforma onde profissionais possam divulgar suas habilidades e empresas possam encontrar candidatos qualificados.
-
-O aplicativo funcionará como um **hub profissional**, reunindo networking, vagas de emprego, criação de conteúdo profissional e comunicação entre usuários.
+O objetivo é facilitar a **transição de militares para o mercado civil**, criando uma plataforma onde profissionais divulguem suas habilidades e empresas encontrem candidatos qualificados. O aplicativo funcionará como um **hub profissional**, reunindo networking, vagas de emprego, criação de conteúdo e comunicação entre usuários.
 
 ---
 
-# 🎯 Objetivo
+## 📄 Documentação do Projeto
+
+| Documento | Descrição |
+|-----------|-----------|
+| [**Relatorio_Projeto.md**](Relatorio_Projeto.md) | Relatório completo: escopo, backlog, prioridades e o que será feito |
+| [Correlacao_PC_AC_LinkedIn.md](Correlacao_PC_AC_LinkedIn.md) | Correlação entre PC, AC e LinkedIn (base do backlog) |
+| [IdeiaPrincipalDotrabalho.md](IdeiaPrincipalDotrabalho.md) | Ideia principal, arquitetura e funcionalidades de referência |
+| [PC.md](PC.md) | Análise da plataforma Plano de Chamadas |
+| [AC.md](AC.md) | Análise da plataforma Ache um Veterano |
+| [Funcionalidades_PC.md](Funcionalidades_PC.md) | Funcionalidades mapeadas do Plano de Chamadas |
+| [Funcionalidades_AC.md](Funcionalidades_AC.md) | Funcionalidades mapeadas do Ache um Veterano |
+
+---
+
+## 🎯 Objetivo
 
 Criar uma **plataforma digital de networking profissional** que permita:
 
 - conexão entre profissionais
 - divulgação de oportunidades de trabalho
-- construção de perfil profissional
+- construção de perfil profissional (currículo online unificado)
 - interação entre empresas e candidatos
 - fortalecimento da comunidade profissional
 
 ---
 
-# 📱 Plataforma
+## 📱 Plataforma
 
-O aplicativo será desenvolvido para:
-
-- **Android**
-
-Baseado na arquitetura do **Android Open Source Project (AOSP)**
-
-https://android.googlesource.com/
-
-O projeto seguirá os princípios da arquitetura oficial do Android.
+- **Android** (prioridade)
+- Baseado na arquitetura do [Android Open Source Project (AOSP)](https://android.googlesource.com/)
+- Código preparado para **futura expansão para iOS** (React Native)
 
 ---
 
-# 🏗 Arquitetura do Sistema
+## 🏗 Arquitetura do Sistema
 
 A estrutura segue a arquitetura padrão do Android.
 
-## Aplicações
-
-- Aplicativos Android desenvolvidos por terceiros
-- Aplicativos privilegiados do sistema
-- Aplicativos desenvolvidos pelos fabricantes
-
----
-
-## APIs
-
-- Android API (utilizada por desenvolvedores)
-- APIs internas do sistema
+| Camada | Descrição |
+|--------|-----------|
+| **Aplicações** | Apps Android (terceiros, privilegiados, fabricantes) |
+| **APIs** | Android API (dev), APIs internas do sistema |
+| **Runtime** | Android Runtime (ART), HAL, bibliotecas nativas |
+| **Núcleo** | Kernel Linux (memória, processos, hardware, segurança) |
 
 ---
 
-## Runtime
+## ⚙ Requisitos Técnicos
 
-- Android Runtime (ART)
-- Serviços de Hardware (HAL)
-- Bibliotecas nativas
-
----
-
-## Núcleo
-
-Baseado no **Kernel Linux**, responsável por:
-
-- gerenciamento de memória
-- gerenciamento de processos
-- gerenciamento de hardware
-- segurança do sistema
+| Aspecto | Requisito |
+|--------|-----------|
+| **Bateria** | Uso mínimo possível; evitar processos desnecessários em segundo plano |
+| **Memória** | Menor consumo possível; bom desempenho em dispositivos mais simples |
+| **Responsividade** | Interface adaptável a diferentes resoluções |
+| **Conectividade** | App sempre conectado; avisar usuário quando internet for necessária; bloquear funções offline |
+| **Usabilidade** | Interface intuitiva, navegação simples, UX eficiente |
 
 ---
 
-# ⚙ Requisitos Técnicos
+## 🚀 Funcionalidades
 
-## 🔋 Bateria
+O aplicativo terá funcionalidades inspiradas no **LinkedIn**, integrando o que já existe no Plano de Chamadas e no Ache um Veterano. Detalhamento e prioridades estão em [Relatorio_Projeto.md](Relatorio_Projeto.md).
 
-O aplicativo deverá utilizar **o mínimo possível de consumo de bateria**, evitando processos desnecessários em segundo plano.
+### 👤 Perfil Profissional
 
----
+Perfil unificado (currículo online): foto, banner, headline, resumo, experiências, formação, certificações, projetos, habilidades, recomendações, destaques. Inclui **upload de documentos** e **testes** (lógica, interpretação, personalidade) como diferencial para empresas.
 
-## 🧠 Memória
+### 🤝 Networking
 
-O sistema deverá utilizar **a menor quantidade possível de memória**, garantindo bom desempenho mesmo em dispositivos mais simples.
+Conexões, seguir profissionais e empresas, mensagens privadas e em grupo, conexões em comum, sugestões de conexão.
 
----
+### 💼 Sistema de Vagas
 
-## 📱 Responsividade
+**Candidato:** buscar vagas, candidatura rápida, salvar vagas, alertas, ver empresa contratante.  
+**Empresa:** publicar vagas, ver candidatos, filtros (área, cargo, cidade, estado).
 
-O aplicativo deverá funcionar corretamente em diferentes resoluções de tela, garantindo uma **interface responsiva e adaptável**.
+### 📢 Criação de Conteúdo (Feed)
 
----
+Postar texto, imagens, vídeos, documentos, enquetes, artigos. Curtir, comentar, compartilhar, repost.
 
-## 🌐 Conectividade
+### 🏢 Páginas de Empresas
 
-O aplicativo funcionará **sempre conectado à internet**.
+Perfil institucional, publicação de vagas e conteúdo, cultura, funcionários, produtos/serviços, estatísticas de seguidores.
 
-Caso o usuário esteja offline, o sistema deverá:
+### 💬 Comunidades e Grupos
 
-- informar a ausência de conexão
-- bloquear funcionalidades dependentes da internet
+Grupos profissionais (ex.: cibersegurança, programação, empreendedorismo).
 
----
+### 📊 Estatísticas
 
-## 🧑‍💻 Usabilidade
+Visualizações de perfil, alcance de postagens, crescimento de seguidores, aparições em busca, engajamento.
 
-O aplicativo deverá apresentar:
+### 🎓 Sistema de Aprendizado
 
-- interface intuitiva
-- navegação simples
-- experiência de usuário eficiente
+Cursos de capacitação, workshops, certificações, trilhas de aprendizado.
 
 ---
 
-# 🚀 Funcionalidades
+## 🔐 Segurança
 
-O aplicativo terá funcionalidades inspiradas no **LinkedIn**.
-
----
-
-# 👤 Perfil Profissional
-
-Usuários poderão criar um perfil profissional completo.
-
-Informações disponíveis:
-
-- Foto de perfil
-- Banner profissional
-- Headline (título profissional)
-- Resumo profissional
-- Experiências de trabalho
-- Formação acadêmica
-- Certificações
-- Projetos
-- Publicações
-- Habilidades (skills)
-- Recomendações
-- Destaques
-
-O perfil funcionará como um **currículo online público**.
+- Comunicação segura via API
+- Proteção e criptografia de dados sensíveis
+- Validação de requisições e controle de acesso
+- Alinhamento à LGPD (conforme políticas das plataformas de referência)
 
 ---
 
-# 🤝 Networking
+## 🛠 Tecnologias
 
-Recursos de conexão entre profissionais.
-
-Funcionalidades:
-
-- adicionar conexões
-- seguir profissionais
-- seguir empresas
-- mensagens privadas
-- mensagens em grupo
-- ver conexões em comum
-- sugestões de conexões
+| Camada | Tecnologia |
+|--------|------------|
+| **Frontend** | React Native (obrigatório) |
+| **Backend** | Node.js |
+| **IDE** | Android Studio |
+| **SDK** | Java SDK |
 
 ---
 
-# 💼 Sistema de Vagas
+## 📂 Repositório
 
-Área dedicada à publicação e busca de vagas de emprego.
-
-Funcionalidades:
-
-- buscar vagas
-- candidatura rápida
-- salvar vagas
-- alertas de vagas
-- visualizar empresa contratante
-- ver conexões dentro da empresa
-- recomendação de vagas
+- Hospedado no **GitHub**
+- **Público** durante o desenvolvimento até a apresentação
+- Após apresentação: pode ser privatizado ou transferido para empresa
+- Para demonstrações: banco de dados fictício ou próprio
 
 ---
 
-# 📢 Criação de Conteúdo
+## 📚 Documentação
 
-Usuários poderão compartilhar conteúdo profissional.
-
-Tipos de publicação:
-
-- texto
-- imagens
-- vídeos
-- documentos
-- enquetes
-- artigos
-
-Interações disponíveis:
-
-- curtidas
-- comentários
-- compartilhamentos
-- reposts
+Toda a documentação do projeto segue as normas da **ABNT** (Associação Brasileira de Normas Técnicas).
 
 ---
 
-# 🏢 Páginas de Empresas
+## 📌 Status e Nome
 
-Empresas poderão criar páginas institucionais.
-
-Funcionalidades:
-
-- perfil da empresa
-- publicação de vagas
-- divulgação de conteúdo
-- apresentação da cultura da empresa
-- listagem de funcionários
-- produtos e serviços
-- estatísticas de seguidores
+- **Status:** 🚧 Em desenvolvimento
+- **Nome do aplicativo:** Ainda não definido
 
 ---
 
-# 💬 Comunidades e Grupos
-
-Usuários poderão participar de grupos profissionais.
-
-Exemplos:
-
-- cibersegurança
-- programação
-- empreendedorismo
-- mercado de trabalho
-
----
-
-# 📊 Estatísticas
-
-O sistema apresentará dados sobre o desempenho do perfil.
-
-Métricas disponíveis:
-
-- visualizações de perfil
-- alcance de postagens
-- crescimento de seguidores
-- aparições em busca
-- engajamento de conteúdo
-
----
-
-# 🎓 Sistema de Aprendizado
-
-O aplicativo poderá incluir recursos educacionais.
-
-Exemplo:
-
-- cursos profissionais
-- certificações
-- trilhas de aprendizado
-
----
-
-# 🔐 Segurança
-
-O projeto terá foco em segurança de dados.
-
-Medidas previstas:
-
-- comunicação segura via API
-- proteção de dados dos usuários
-- validação de requisições
-- criptografia de dados sensíveis
-- controle de acesso
-
----
-
-# 🛠 Tecnologias Utilizadas
-
-## Frontend
-
-- React Native
-
----
-
-## Backend
-
-- Node.js
-
----
-
-## IDE
-
-- Android Studio
-
----
-
-## SDK
-
-- Java SDK
-
----
-
-# 📂 Repositório
-
-O projeto será hospedado no **GitHub**.
-
-Durante o desenvolvimento:
-
-- o repositório será **público**
-
-Após a apresentação do trabalho:
-
-- o repositório poderá ser **privatizado**
-- o projeto poderá ser transferido para uma empresa
-
-Para demonstrações públicas poderá ser utilizado:
-
-- banco de dados fictício
-- banco de dados próprio
-
----
-
-# 📚 Documentação
-
-Toda a documentação do projeto seguirá as normas da:
-
-**ABNT – Associação Brasileira de Normas Técnicas**
-
----
-
-# 📱 Expansão Futura
-
-O código deverá ser estruturado de forma que futuramente o aplicativo possa ser adaptado para:
-
-- **iOS**
-
-Utilizando a própria capacidade multiplataforma do **React Native**.
-
----
-
-# 🧠 Status do Projeto
-
-🚧 Em desenvolvimento
-
----
-
-# 📌 Nome do Aplicativo
-
-Ainda **não definido**.
-
----
-
-# 👨‍💻 Autor
+## 👨‍💻 Autor
 
 Projeto desenvolvido como **trabalho extensionista acadêmico**.
