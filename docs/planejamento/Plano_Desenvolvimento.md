@@ -1,7 +1,7 @@
 # Plano de Desenvolvimento – Rede Profissional para Veteranos
 
 **Documento:** Plano completo de desenvolvimento do aplicativo  
-**Base:** [Relatorio_Projeto.md](Relatorio_Projeto.md), [Correlacao_PC_AC_LinkedIn.md](Correlacao_PC_AC_LinkedIn.md), README e documentação do projeto  
+**Base:** [Relatorio_Projeto.md](Relatorio_Projeto.md) (inclui correlação PC × AC × LinkedIn em anexo), README e documentação do projeto  
 **Objetivo:** Definir arquitetura, fases, ordem de implementação e critérios de entrega.
 
 ---
@@ -409,10 +409,8 @@ Segurança, performance, LGPD e conectividade em todas as fases ◄────�
 
 ## 8. Referências internas
 
-- Escopo e backlog: [Relatorio_Projeto.md](Relatorio_Projeto.md)
-- Correlação PC × AC × LinkedIn: [Correlacao_PC_AC_LinkedIn.md](Correlacao_PC_AC_LinkedIn.md)
-- Ideia principal e requisitos: [IdeiaPrincipalDotrabalho.md](IdeiaPrincipalDotrabalho.md)
-- Visão geral do projeto: [README.md](../README.md) (raiz do repositório)
+- Escopo, backlog e correlação PC × AC × LinkedIn: [Relatorio_Projeto.md](Relatorio_Projeto.md)
+- Visão geral do projeto: [README.md](../../README.md) (raiz do repositório)
 
 ---
 

@@ -3,7 +3,7 @@
 **Projeto:** Aplicativo mobile de rede profissional para transição de militares e veteranos ao mercado civil  
 **Tipo:** Atividade de extensão universitária  
 **Documento:** Atende ao roteiro de extensão (diagnóstico, planejamento, encerramento).  
-**Referências:** [Relatorio_Projeto.md](Relatorio_Projeto.md), [Plano_Desenvolvimento.md](Plano_Desenvolvimento.md), [Roteiro_Extensao_Mapa.md](Roteiro_Extensao_Mapa.md).
+**Referências:** [Relatorio_Projeto.md](../planejamento/Relatorio_Projeto.md), [Plano_Desenvolvimento.md](../planejamento/Plano_Desenvolvimento.md). O mapeamento roteiro vs documentação está no Anexo A ao final deste documento.
 
 ---
 
@@ -99,7 +99,7 @@ Os objetivos da **atividade de extensão** em relação à situação-problema i
 
 ## 2.1 – Plano de trabalho com cronograma das atividades
 
-O plano de trabalho técnico está detalhado no [Plano_Desenvolvimento.md](Plano_Desenvolvimento.md). Abaixo, a síntese em formato de cronograma para a extensão (o quê, quando, como, para quem, onde, recursos). As datas e o “onde” devem ser ajustados conforme o calendário da instituição e a disponibilidade dos parceiros.
+O plano de trabalho técnico está detalhado no [Plano_Desenvolvimento.md](../planejamento/Plano_Desenvolvimento.md). Abaixo, a síntese em formato de cronograma para a extensão (o quê, quando, como, para quem, onde, recursos). As datas e o “onde” devem ser ajustados conforme o calendário da instituição e a disponibilidade dos parceiros.
 
 | Fase | O quê | Quando | Como | Para quem | Onde | Recursos |
 |------|------|--------|------|-----------|------|----------|
@@ -126,7 +126,7 @@ A metodologia da atividade de extensão combina **desenvolvimento de software** 
 
 ### Desenvolvimento do aplicativo
 
-- **Abordagem incremental:** O aplicativo é desenvolvido em fases (0 a 8), conforme [Plano_Desenvolvimento.md](Plano_Desenvolvimento.md), priorizando primeiro a fundação (login, integração com as APIs do PC e do AC) e depois as funcionalidades de vagas, perfil, networking, feed e chat.
+- **Abordagem incremental:** O aplicativo é desenvolvido em fases (0 a 8), conforme [Plano_Desenvolvimento.md](../planejamento/Plano_Desenvolvimento.md), priorizando primeiro a fundação (login, integração com as APIs do PC e do AC) e depois as funcionalidades de vagas, perfil, networking, feed e chat.
 - **Consumo de APIs existentes:** Os dados de perfil, vagas, documentos, testes e cursos vêm das APIs do Plano de Chamadas e do Ache um Veterano; o app não mantém banco próprio para esses domínios, garantindo alinhamento com as plataformas parceiras.
 - **Duas interfaces no mesmo app:** A tela de login oferece a opção “Entrar como candidato” ou “Entrar como empresa”; após a autenticação, o usuário é direcionado para a interface correspondente (candidato ou empresa), adequada ao seu perfil e às APIs consumidas (PC ou AC).
 
@@ -206,6 +206,23 @@ Para cada item incluído na pasta ou no relatório de encerramento:
 4. **Arquivo anexo** (foto, PDF, link) na pasta de evidências ou no relatório final.
 
 *[Ao encerrar o projeto, preencher este espaço com a listagem real das evidências reunidas e anexá-las conforme as normas da instituição.]*
+
+---
+
+## Anexo A – Mapeamento roteiro vs documentação
+
+Este relatório atende aos itens do roteiro de extensão conforme a tabela abaixo (o que antes era acompanhado em documento separado).
+
+| Item do roteiro | Status neste documento |
+|-----------------|-------------------------|
+| 1.1 Partes envolvidas e parceiros | Seção 1.1 (com [A PREENCHER] para dados formais) |
+| 1.2 Situação-problema | Seção 1.2 |
+| 1.3 Demanda sociocomunitária e motivação acadêmica | Seção 1.3 |
+| 1.4 Objetivos | Seção 1.4 (com [A DEFINIR] para prazos) |
+| 2.1 Plano de trabalho e cronograma | Seção 2.1 (com [A DEFINIR] para datas/onde) |
+| 2.2 Metodologia | Seção 2.2 |
+| 2.3 Avaliação dos resultados | Seção 2.3 |
+| 3.1 Evidências | Seção 3.1 (modelo para preencher no encerramento) |
 
 ---
 

@@ -176,4 +176,51 @@ O projeto visa construir um **hub profissional mobile** que una o ecossistema do
 
 ---
 
-*Documento gerado com base em: README.md, docs/IdeiaPrincipalDotrabalho.md, docs/analise/PC.md, docs/analise/AC.md, docs/funcionalidades/Funcionalidades_PC.md, docs/funcionalidades/Funcionalidades_AC.md e docs/Correlacao_PC_AC_LinkedIn.md.*
+## Anexo A – Correlação PC × AC × LinkedIn
+
+*(Conteúdo que antes estava em documento separado; base do backlog.)*
+
+### O que PC e AC já oferecem (equivalente ao LinkedIn)
+
+**Perfil profissional:** PC cobre foto, banner, headline (Área/Cargo), sobre mim, experiência, educação, certificações/documentos, soft/hard skills, links, edição de perfil. AC não gerencia perfil de candidato. → App deve replicar e unificar o modelo (perfil único para PC e AC).
+
+**Vagas e recrutamento:** PC = candidato (ver oportunidades, minhas candidaturas). AC = empresa (Veteranos em Destaque, filtros Área/Cargo/Cidade/Estado, criar Minhas Vagas). → App integra os dois fluxos no estilo LinkedIn Jobs.
+
+**Documentos e testes:** PC tem upload de documentos (diplomas, CT, reservista, atestado de conduta, etc.) e testes (lógica, interpretação, personalidade). → App mantém esse diferencial para empresas.
+
+**Aprendizado:** PC tem cursos de capacitação e workshops. → Equivalente ao sistema de aprendizado do app.
+
+### O que precisa ser CRIADO no app (não detalhado no PC ou AC)
+
+- **Networking:** conexões, seguir, chat, mensagens em grupo, recomendações, conexões em comum, sugestões.
+- **Feed:** post de texto/imagem/vídeo/documento; curtir, comentar, compartilhar, repost.
+- **Páginas de empresas:** perfil institucional, vagas, conteúdo, cultura, funcionários, estatísticas.
+- **Estatísticas (analytics):** quem viu perfil, alcance, seguidores, engajamento.
+- **Comunidades e grupos.** Recursos adicionais (eventos, newsletter, premium, IA) em backlog.
+
+### Checklist do app (prioridades)
+
+| # | Funcionalidade | Prioridade |
+|---|----------------|------------|
+| 1 | Perfil unificado (foto, banner, headline, sobre, experiência, educação, skills, links) | Alta |
+| 2 | Documentos e testes (lógica, interpretação, personalidade) | Alta |
+| 3 | Vagas: buscar, candidatar, salvar, alertas (candidato) | Alta |
+| 4 | Vagas: publicar, ver candidatos, filtros (empresa) | Alta |
+| 5 | Cursos e workshops | Média |
+| 6 | Chat (privado e grupo) | Alta |
+| 7 | Feed: postar, curtir, comentar, compartilhar, repost | Alta |
+| 8 | Networking: conexões, seguir, sugestões | Alta |
+| 9 | Páginas de empresas | Média |
+| 10 | Comunidades e grupos | Média |
+| 11 | Estatísticas (perfil, alcance, engajamento) | Média |
+| 12 | Recomendações de colegas | Média |
+
+---
+
+## Anexo B – Referência
+
+Os requisitos técnicos (plataforma, bateria, memória, responsividade, conectividade, segurança, React Native, Node.js) e a lista de funcionalidades de referência (LinkedIn) estão consolidados neste relatório e no README. O documento de ideia original do projeto foi incorporado ao planejamento.
+
+---
+
+*Documento gerado com base em: [README.md](../../README.md), [Plataformas_PC_AC.md](../analise/Plataformas_PC_AC.md), [Funcionalidades_PC_AC.md](../funcionalidades/Funcionalidades_PC_AC.md) e conteúdo incorporado nos Anexos A e B.*

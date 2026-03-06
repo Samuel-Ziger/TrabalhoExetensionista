@@ -13,7 +13,7 @@ O objetivo é facilitar a **transição de militares para o mercado civil**, cri
 
 **Entrada e interfaces:** O app **começa com uma tela de login**, onde o usuário escolhe **entrar como candidato** ou **entrar como empresa**. Dentro do mesmo app existem **duas interfaces**: uma para o candidato (perfil, vagas, candidaturas, documentos, cursos) e outra para a empresa (veteranos em destaque, Minhas Vagas, candidatos).
 
-**Fonte dos dados:** Os dados de perfil, vagas, documentos, testes e cursos vêm das **APIs do Plano de Chamadas e do Ache um Veterano**; o app consome essas APIs e não possui banco de dados próprio para esses domínios. Detalhes em [Plano_Desenvolvimento.md](docs/Plano_Desenvolvimento.md).
+**Fonte dos dados:** Os dados de perfil, vagas, documentos, testes e cursos vêm das **APIs do Plano de Chamadas e do Ache um Veterano**; o app consome essas APIs e não possui banco de dados próprio para esses domínios. Detalhes em [Plano_Desenvolvimento.md](docs/planejamento/Plano_Desenvolvimento.md).
 
 ---
 
@@ -23,15 +23,11 @@ A documentação está organizada na pasta [**docs/**](docs/). Índice completo:
 
 | Documento | Descrição |
 |-----------|-----------|
-| [**Relatorio_Extensao.md**](docs/Relatorio_Extensao.md) | Relatório de extensão (roteiro: diagnóstico, planejamento, encerramento) |
-| [**Plano_Desenvolvimento.md**](docs/Plano_Desenvolvimento.md) | Plano completo de desenvolvimento: arquitetura, fases e ordem de implementação |
-| [**Relatorio_Projeto.md**](docs/Relatorio_Projeto.md) | Relatório completo: escopo, backlog, prioridades e o que será feito |
-| [Correlacao_PC_AC_LinkedIn.md](docs/Correlacao_PC_AC_LinkedIn.md) | Correlação entre PC, AC e LinkedIn (base do backlog) |
-| [IdeiaPrincipalDotrabalho.md](docs/IdeiaPrincipalDotrabalho.md) | Ideia principal, arquitetura e funcionalidades de referência |
-| [PC.md](docs/analise/PC.md) | Análise da plataforma Plano de Chamadas |
-| [AC.md](docs/analise/AC.md) | Análise da plataforma Ache um Veterano |
-| [Funcionalidades_PC.md](docs/funcionalidades/Funcionalidades_PC.md) | Funcionalidades mapeadas do Plano de Chamadas |
-| [Funcionalidades_AC.md](docs/funcionalidades/Funcionalidades_AC.md) | Funcionalidades mapeadas do Ache um Veterano |
+| [**Relatorio_Extensao.md**](docs/extensao/Relatorio_Extensao.md) | Relatório de extensão (roteiro: diagnóstico, planejamento, encerramento) |
+| [**Plano_Desenvolvimento.md**](docs/planejamento/Plano_Desenvolvimento.md) | Plano completo de desenvolvimento: arquitetura, fases e ordem de implementação |
+| [**Relatorio_Projeto.md**](docs/planejamento/Relatorio_Projeto.md) | Escopo, backlog, prioridades e correlação PC × AC × LinkedIn (anexos) |
+| [Plataformas_PC_AC.md](docs/analise/Plataformas_PC_AC.md) | Análise das plataformas Plano de Chamadas e Ache um Veterano |
+| [Funcionalidades_PC_AC.md](docs/funcionalidades/Funcionalidades_PC_AC.md) | Funcionalidades mapeadas do PC e do AC |
 
 ---
 
@@ -82,7 +78,7 @@ A estrutura segue a arquitetura padrão do Android.
 
 ## 🚀 Funcionalidades
 
-O aplicativo terá funcionalidades inspiradas no **LinkedIn**, integrando o que já existe no Plano de Chamadas e no Ache um Veterano. Detalhamento e prioridades estão em [Relatorio_Projeto.md](docs/Relatorio_Projeto.md).
+O aplicativo terá funcionalidades inspiradas no **LinkedIn**, integrando o que já existe no Plano de Chamadas e no Ache um Veterano. Detalhamento e prioridades estão em [Relatorio_Projeto.md](docs/planejamento/Relatorio_Projeto.md).
 
 ### 👤 Perfil Profissional
 
