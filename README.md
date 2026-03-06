@@ -15,15 +15,18 @@ O objetivo é facilitar a **transição de militares para o mercado civil**, cri
 
 ## 📄 Documentação do Projeto
 
+A documentação está organizada na pasta [**docs/**](docs/). Índice completo: [docs/README.md](docs/README.md).
+
 | Documento | Descrição |
 |-----------|-----------|
-| [**Relatorio_Projeto.md**](Relatorio_Projeto.md) | Relatório completo: escopo, backlog, prioridades e o que será feito |
-| [Correlacao_PC_AC_LinkedIn.md](Correlacao_PC_AC_LinkedIn.md) | Correlação entre PC, AC e LinkedIn (base do backlog) |
-| [IdeiaPrincipalDotrabalho.md](IdeiaPrincipalDotrabalho.md) | Ideia principal, arquitetura e funcionalidades de referência |
-| [PC.md](PC.md) | Análise da plataforma Plano de Chamadas |
-| [AC.md](AC.md) | Análise da plataforma Ache um Veterano |
-| [Funcionalidades_PC.md](Funcionalidades_PC.md) | Funcionalidades mapeadas do Plano de Chamadas |
-| [Funcionalidades_AC.md](Funcionalidades_AC.md) | Funcionalidades mapeadas do Ache um Veterano |
+| [**Plano_Desenvolvimento.md**](docs/Plano_Desenvolvimento.md) | Plano completo de desenvolvimento: arquitetura, fases e ordem de implementação |
+| [**Relatorio_Projeto.md**](docs/Relatorio_Projeto.md) | Relatório completo: escopo, backlog, prioridades e o que será feito |
+| [Correlacao_PC_AC_LinkedIn.md](docs/Correlacao_PC_AC_LinkedIn.md) | Correlação entre PC, AC e LinkedIn (base do backlog) |
+| [IdeiaPrincipalDotrabalho.md](docs/IdeiaPrincipalDotrabalho.md) | Ideia principal, arquitetura e funcionalidades de referência |
+| [PC.md](docs/analise/PC.md) | Análise da plataforma Plano de Chamadas |
+| [AC.md](docs/analise/AC.md) | Análise da plataforma Ache um Veterano |
+| [Funcionalidades_PC.md](docs/funcionalidades/Funcionalidades_PC.md) | Funcionalidades mapeadas do Plano de Chamadas |
+| [Funcionalidades_AC.md](docs/funcionalidades/Funcionalidades_AC.md) | Funcionalidades mapeadas do Ache um Veterano |
 
 ---
 
@@ -74,7 +77,7 @@ A estrutura segue a arquitetura padrão do Android.
 
 ## 🚀 Funcionalidades
 
-O aplicativo terá funcionalidades inspiradas no **LinkedIn**, integrando o que já existe no Plano de Chamadas e no Ache um Veterano. Detalhamento e prioridades estão em [Relatorio_Projeto.md](Relatorio_Projeto.md).
+O aplicativo terá funcionalidades inspiradas no **LinkedIn**, integrando o que já existe no Plano de Chamadas e no Ache um Veterano. Detalhamento e prioridades estão em [Relatorio_Projeto.md](docs/Relatorio_Projeto.md).
 
 ### 👤 Perfil Profissional
 

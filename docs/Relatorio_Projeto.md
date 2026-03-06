@@ -172,4 +172,4 @@ O projeto visa construir um **hub profissional mobile** que una o ecossistema do
 
 ---
 
-*Documento gerado com base em: README.md, IdeiaPrincipalDotrabalho.md, PC.md, AC.md, Funcionalidades_PC.md, Funcionalidades_AC.md e Correlacao_PC_AC_LinkedIn.md.*
+*Documento gerado com base em: README.md, docs/IdeiaPrincipalDotrabalho.md, docs/analise/PC.md, docs/analise/AC.md, docs/funcionalidades/Funcionalidades_PC.md, docs/funcionalidades/Funcionalidades_AC.md e docs/Correlacao_PC_AC_LinkedIn.md.*
