@@ -11,6 +11,8 @@ A proposta é integrar e unificar funcionalidades das plataformas:
 
 O objetivo é facilitar a **transição de militares para o mercado civil**, criando uma plataforma onde profissionais divulguem suas habilidades e empresas encontrem candidatos qualificados. O aplicativo funcionará como um **hub profissional**, reunindo networking, vagas de emprego, criação de conteúdo e comunicação entre usuários.
 
+**Entrada e interfaces:** O app **começa com uma tela de login**, onde o usuário escolhe **entrar como candidato** ou **entrar como empresa**. Dentro do mesmo app existem **duas interfaces**: uma para o candidato (perfil, vagas, candidaturas, documentos, cursos) e outra para a empresa (veteranos em destaque, Minhas Vagas, candidatos).
+
 **Fonte dos dados:** Os dados de perfil, vagas, documentos, testes e cursos vêm das **APIs do Plano de Chamadas e do Ache um Veterano**; o app consome essas APIs e não possui banco de dados próprio para esses domínios. Detalhes em [Plano_Desenvolvimento.md](docs/Plano_Desenvolvimento.md).
 
 ---

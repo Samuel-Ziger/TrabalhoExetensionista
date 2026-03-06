@@ -8,10 +8,21 @@
 
 ## 1. Visão geral do plano
 
+### 1.1 Fluxo de entrada: login com dois tipos de usuário
+
+O aplicativo **inicia na tela de login**. Nela o usuário escolhe como deseja entrar:
+
+- **Entrar como candidato** – acessa a interface voltada ao veterano/candidato (perfil, vagas, candidaturas, documentos, testes, cursos – dados da API do PC).
+- **Entrar como empresa** – acessa a interface voltada ao recrutador/empresa (veteranos em destaque, Minhas Vagas, candidatos – dados da API do AC).
+
+Ou seja: **duas interfaces dentro do mesmo app**, definidas pelo tipo de login. Após autenticação, o app redireciona para a interface correspondente (candidato ou empresa). A navegação, abas e telas são diferentes conforme o tipo de usuário.
+
+### 1.2 Fases do desenvolvimento
+
 O desenvolvimento segue uma abordagem **incremental e por fases**, priorizando:
 
-1. **Fundação técnica** – ambiente, autenticação e perfil (base de todos os fluxos).
-2. **Valor central** – vagas (candidato e empresa), que é o diferencial PC + AC.
+1. **Fundação técnica** – tela de login com opção candidato/empresa; ambiente e integração com as APIs (PC e AC).
+2. **Valor central** – vagas (interface candidato e interface empresa), que é o diferencial PC + AC.
 3. **Engajamento** – networking, feed e chat (estilo LinkedIn).
 4. **Complementos** – aprendizado, páginas de empresas, comunidades, estatísticas.
 
@@ -92,8 +103,8 @@ Este plano considera **Opção A** para feed, chat e networking, mantendo **perf
 | Aspecto | Observação |
 |--------|------------|
 | **Documentação** | Obter documentação oficial das APIs do PC e do AC (endpoints, autenticação, formatos). |
-| **Autenticação** | Verificar se existe login unificado (um token para ambas) ou se o app precisa de dois fluxos (PC e AC). |
-| **Cliente HTTP no app** | Um módulo por API (ex.: `api/pc.js`, `api/ac.js`) ou camada unificada que chama as duas; tratar erros e timeout. |
+| **Autenticação** | Tela de login com opção **candidato** (API do PC) e **empresa** (API do AC). Verificar se existe login unificado (um token para ambas) ou dois fluxos (PC para candidato, AC para empresa). O tipo de usuário define qual interface exibir após o login. |
+| **Cliente HTTP no app** | Um módulo por API (ex.: `api/pc.js`, `api/ac.js`) ou camada unificada; tratar erros e timeout. Candidato usa predominantemente PC; empresa usa predominantemente AC. |
 | **Cache local** | AsyncStorage ou cache em memória para reduzir chamadas e melhorar performance (perfil, lista de vagas). |
 | **Segurança** | Usar HTTPS; não armazenar senhas no app; seguir recomendações das APIs (tokens, refresh). |
 
@@ -169,11 +180,12 @@ TrabalhoExetensionista/
 
 ### 3.2 App (React Native)
 
-- **screens:** uma pasta por fluxo (auth, perfil, vagas, feed, chat, etc.).
-- **components:** reutilizáveis (botões, cards, inputs, listas).
-- **api:** cliente HTTP (baseURL, interceptors, funções por domínio).
-- **navigation:** stacks e tabs definidos em um lugar só.
-- **contexts/store:** usuário logado, perfil resumido, preferências.
+- **Fluxo de entrada:** tela de login (raiz) com opção **candidato** ou **empresa**; após login, navegação diferente para cada tipo (duas interfaces no mesmo app).
+- **screens:** organizar por contexto: `auth/` (login), `candidato/` (perfil, vagas, candidaturas, documentos, etc.), `empresa/` (veteranos em destaque, Minhas Vagas, candidatos); telas comuns (ex.: feed, chat) podem ficar em pasta compartilhada.
+- **components:** reutilizáveis (botões, cards, inputs, listas); alguns específicos por interface (ex.: card de vaga para candidato vs card de candidato para empresa).
+- **api:** cliente HTTP para API do PC e API do AC (baseURL, interceptors, funções por domínio).
+- **navigation:** login → roteamento condicional (navigator candidato ou navigator empresa); stacks e tabs definidos por tipo de usuário.
+- **contexts/store:** usuário logado, **tipo de usuário (candidato | empresa)**, perfil resumido, preferências.
 
 ### 3.3 API (Node.js)
 
@@ -198,15 +210,15 @@ As fases estão ordenadas por **dependência lógica** e **prioridade de negóci
 | # | Tarefa | Responsável técnico | Entregável |
 |---|--------|---------------------|------------|
 | 0.1 | Criar projeto React Native (Android); configurar Android Studio e SDK | Frontend | App abre em emulador/dispositivo |
-| 0.2 | Configurar navegação (stack + tab ou drawer inicial) e tema básico | Frontend | Navegação e tela placeholder |
+| 0.2 | Configurar navegação: **tela de login** (raiz) e, após login, **duas estruturas de navegação** (stack + tab ou drawer) – uma para candidato, outra para empresa; tema básico | Frontend | Login como raiz; duas interfaces (candidato e empresa) após autenticação |
 | 0.3 | Obter documentação das APIs do **PC** e do **AC** (endpoints, autenticação, formatos) | Todos | Documento ou links das APIs |
 | 0.4 | Implementar clientes HTTP no app para **API do PC** e **API do AC** (baseURL, headers, tratamento de erro) | Frontend | Módulos `api/pc` e `api/ac` (ou equivalente) |
-| 0.5 | Integrar login/registro com a **API do PC** (ou fluxo definido pelas plataformas); salvar token/sessão (AsyncStorage); tela de login no app | Frontend | Fluxo login → tela inicial usando dados do PC/AC |
+| 0.5 | **Tela de login inicial:** opção “Entrar como **candidato**” e “Entrar como **empresa**”; integrar com API do PC (candidato) e API do AC (empresa); salvar token/sessão e **tipo de usuário** (AsyncStorage); após login, redirecionar para a **interface candidato** ou **interface empresa** | Frontend | Login com duas opções → duas interfaces no mesmo app |
 | 0.6 | Detecção de rede (NetInfo); aviso “conexão necessária” quando offline | Frontend | Componente ou tela de “sem internet” |
 | 0.7 | *(Opcional)* Se houver backend complementar (feed/chat): criar projeto Node.js e estrutura; senão, pular para as fases de consumo | Backend | API complementar só se necessário |
 | 0.8 | Documentar ambiente (README): como rodar o app, URLs das APIs PC e AC, variáveis de ambiente | Todos | README atualizado |
 
-**Critério de conclusão:** Usuário faz login no app usando a API do PC (e/ou AC); app consome endpoints das duas APIs; aviso de conectividade funcionando.
+**Critério de conclusão:** Usuário vê a tela de login com opção “Entrar como candidato” e “Entrar como empresa”; após login, é levado à interface correspondente (candidato ou empresa); app consome as APIs do PC e do AC conforme o tipo; aviso de conectividade funcionando.
 
 ---
 

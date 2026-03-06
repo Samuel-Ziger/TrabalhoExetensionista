@@ -10,6 +10,8 @@
 
 O projeto consiste no desenvolvimento de um **aplicativo mobile para Android** que funciona como uma **rede social profissional inspirada no LinkedIn**, com foco na **transição de militares e veteranos para o mercado civil**. O app integra e unifica as funcionalidades das plataformas existentes **Plano de Chamadas** (planodechamadas.com.br) e **Ache um Veterano** (acheumveterano.com.br), oferecendo perfil profissional, vagas, networking, feed de conteúdo, chat e aprendizado em um único ambiente.
 
+**Fluxo de entrada:** O aplicativo **inicia com uma tela de login**, na qual o usuário escolhe **entrar como candidato** ou **entrar como empresa**. A partir daí, o app exibe **duas interfaces distintas dentro do mesmo aplicativo**: uma para o candidato (veterano) e outra para a empresa (recrutador), cada uma com suas telas e fluxos específicos.
+
 ---
 
 ## 2. Contexto e Plataformas de Referência
