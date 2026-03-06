@@ -175,9 +175,16 @@ Este documento cruza o **roteiro de extensão** (diagnóstico, planejamento, enc
 
 ---
 
-## Próximos passos sugeridos
+## Relatório de Extensão criado
 
-1. **Criar um único documento de “Relatório de Extensão”** (ou seções no Relatorio_Projeto) com: 1.1 a 1.4 e 2.1 a 2.3 no formato do roteiro, usando o que já existe e completando o que falta.
+O documento **[Relatorio_Extensao.md](Relatorio_Extensao.md)** foi criado com todas as seções do roteiro (1.1 a 1.4, 2.1 a 2.3, 3.1). Itens [A PREENCHER] ou [A DEFINIR] ficam para a equipe preencher no futuro.
+
+## Próximos passos sugeridos (parciais – a completar no futuro)
+
+1. **Completar 1.1 no Relatorio_Extensao:** Incluir nome/contato dos parceiros, perfil do público (socioeconômico, faixa etária, etc.), quantidade estimada, equipe do projeto.
+2. **Completar 2.1 no Relatorio_Extensao:** Incluir datas, "onde" e "recursos" no cronograma.
+3. **Completar 1.1 no Relatorio_Extensao (repetido acima).**
+4. **Removido:** Criar um único documento de “Relatório de Extensão”** (ou seções no Relatorio_Projeto) com: 1.1 a 1.4 e 2.1 a 2.3 no formato do roteiro, usando o que já existe e completando o que falta.
 2. **Completar 1.1:** Incluir nome/contato dos parceiros, perfil do público (socioeconômico, faixa etária, etc.), quantidade estimada, equipe do projeto.
 3. **Redigir 1.2:** Uma seção “Situação-problema” reunindo em tópicos o que já está em PC.md e AC.md.
 4. **Redigir 1.3:** Um parágrafo que una problema → impacto social/educacional/econômico → como o projeto (conhecimento acadêmico) responde.

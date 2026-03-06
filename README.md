@@ -23,6 +23,7 @@ A documentação está organizada na pasta [**docs/**](docs/). Índice completo:
 
 | Documento | Descrição |
 |-----------|-----------|
+| [**Relatorio_Extensao.md**](docs/Relatorio_Extensao.md) | Relatório de extensão (roteiro: diagnóstico, planejamento, encerramento) |
 | [**Plano_Desenvolvimento.md**](docs/Plano_Desenvolvimento.md) | Plano completo de desenvolvimento: arquitetura, fases e ordem de implementação |
 | [**Relatorio_Projeto.md**](docs/Relatorio_Projeto.md) | Relatório completo: escopo, backlog, prioridades e o que será feito |
 | [Correlacao_PC_AC_LinkedIn.md](docs/Correlacao_PC_AC_LinkedIn.md) | Correlação entre PC, AC e LinkedIn (base do backlog) |
