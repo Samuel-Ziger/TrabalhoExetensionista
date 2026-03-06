@@ -51,7 +51,8 @@ O app deve replicar o conceito de: perfil profissional, networking, vagas, cria�
 |--------|-----------|
 | **Plataforma** | Android (prioridade); código preparado para iOS |
 | **Frontend** | React Native (obrigatório) |
-| **Backend** | Node.js |
+| **Fonte dos dados** | APIs do **Plano de Chamadas (PC)** e do **Ache um Veterano (AC)** – o app consome essas APIs; não há banco de dados próprio para perfil, vagas, documentos, testes e cursos |
+| **Backend** | Node.js (opcional; apenas para recursos não oferecidos pelo PC/AC, ex.: feed, chat) |
 | **IDE** | Android Studio; Java SDK |
 | **Bateria** | Uso mínimo possível |
 | **Memória** | Uso mínimo possível |
@@ -152,9 +153,10 @@ Resumo do que **não** está descrito no PC/AC e precisa ser **implementado no a
 ## 8. Arquitetura e Stack
 
 - **App:** React Native (Android; preparado para iOS).  
-- **Backend/API:** Node.js.  
+- **Fonte dos dados:** O **banco de dados** (perfil, vagas, documentos, testes, cursos) **vem das APIs do Plano de Chamadas (PC) e do Ache um Veterano (AC)**. O aplicativo consome essas APIs; não há banco de dados próprio para esses domínios.  
+- **Backend complementar:** Node.js pode ser usado apenas para funcionalidades que o PC e o AC não oferecem (ex.: feed, chat, networking), com banco próprio somente para esses recursos.  
 - **Referência de arquitetura:** Android (AOSP); considerações de bateria, memória e responsividade.  
-- **Segurança:** API segura, criptografia, proteção de dados (LGPD em mente, conforme PC/AC).
+- **Segurança:** Consumo seguro das APIs (HTTPS, tokens); criptografia e LGPD conforme políticas do PC e do AC.
 
 ---
 

@@ -21,30 +21,60 @@ Requisitos transversais em todas as fases: **segurança (API, criptografia, LGPD
 
 ## 2. Stack e arquitetura técnica
 
-### 2.1 Visão geral
+### 2.1 Fonte dos dados: APIs do PC e do AC
+
+**Os dados do aplicativo vêm das APIs das plataformas existentes:**
+
+- **API do Plano de Chamadas (PC)** – planodechamadas.com.br  
+  Perfil do candidato, documentos, testes, cursos, workshops, oportunidades (vagas) e candidaturas.
+
+- **API do Ache um Veterano (AC)** – acheumveterano.com.br  
+  Veteranos em destaque, filtros de busca (área, cargo, cidade, estado), vagas publicadas pelas empresas (Minhas Vagas).
+
+O app **não possui banco de dados próprio** para esses domínios: ele **consome as APIs do PC e do AC**. A autenticação do usuário (login/sessão) dependerá do que essas APIs oferecerem (ex.: token único ou tokens separados por plataforma).
+
+Funcionalidades que **não** existem hoje no PC nem no AC (feed, chat, networking, comunidades, estatísticas) podem exigir:
+- **Opção A:** uma **API complementar em Node.js** (backend do projeto) com banco próprio apenas para esses recursos; ou  
+- **Opção B:** futura expansão das APIs do PC/AC, se houver parceria.
+
+Este plano considera **Opção A** para feed, chat e networking, mantendo **perfil, vagas, documentos, testes e aprendizado** sempre via **APIs do PC e do AC**.
+
+### 2.2 Visão geral da arquitetura
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    APLICATIVO (React Native)                     │
-│  Android (prioridade) │ Código preparado para iOS                │
-└───────────────────────────────┬─────────────────────────────────┘
-                                │ HTTPS / REST (e/ou WebSocket para chat)
-                                ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      API (Node.js)                              │
-│  Autenticação (JWT) │ Validação │ Rate limit │ Logs              │
-└───────────────────────────────┬─────────────────────────────────┘
-                                │
-                ┌───────────────┼───────────────┐
-                ▼               ▼               ▼
-        ┌───────────┐   ┌───────────┐   ┌───────────┐
-        │  Banco    │   │  Storage  │   │  Cache    │
-        │  (SQL ou  │   │  (arquivos│   │  (opcional│
-        │  NoSQL)   │   │  docs/img)│   │  Redis)   │
-        └───────────┘   └───────────┘   └───────────┘
+│  Android (prioridade) │ Código preparado para iOS                 │
+└───────┬─────────────────────────────┬───────────────────────────┘
+        │ HTTPS / REST                 │ HTTPS / REST (e WebSocket)
+        ▼                             ▼
+┌───────────────────┐         ┌───────────────────────────────────┐
+│   API Plano de    │         │  API Ache um Veterano (AC)         │
+│   Chamadas (PC)   │         │  Vagas, veteranos em destaque,     │
+│   Perfil, docs,   │         │  filtros (área, cargo, cidade,      │
+│   testes, cursos, │         │  estado), Minhas Vagas (empresa)   │
+│   vagas/candidat. │         │                                    │
+└───────────────────┘         └───────────────────────────────────┘
+        │
+        │  (dados oficiais; fonte primária)
+        │
+        └──────────────────────┬──────────────────────────────────┘
+                               │
+        ┌──────────────────────┴──────────────────────────────────┐
+        │  API complementar (Node.js) – apenas se necessário      │
+        │  Para: chat, feed, networking, grupos (não existem no     │
+        │  PC/AC). Autenticação pode ser delegada ao PC ou própria │
+        └──────────────────────┬──────────────────────────────────┘
+                               │
+                               ▼
+                    ┌───────────────────┐
+                    │  Banco próprio    │
+                    │  (só para chat,    │
+                    │   feed, conexões) │
+                    └───────────────────┘
 ```
 
-### 2.2 Frontend (obrigatório)
+### 2.3 Frontend (obrigatório)
 
 | Item | Escolha | Observação |
 |------|---------|------------|
@@ -57,22 +87,31 @@ Requisitos transversais em todas as fases: **segurança (API, criptografia, LGPD
 | Armazenamento local | AsyncStorage | Token, preferências, cache leve |
 | Upload de arquivos | react-native-document-picker + multipart | Documentos e fotos do perfil |
 
-### 2.3 Backend
+### 2.4 Consumo das APIs do PC e do AC (fonte principal dos dados)
+
+| Aspecto | Observação |
+|--------|------------|
+| **Documentação** | Obter documentação oficial das APIs do PC e do AC (endpoints, autenticação, formatos). |
+| **Autenticação** | Verificar se existe login unificado (um token para ambas) ou se o app precisa de dois fluxos (PC e AC). |
+| **Cliente HTTP no app** | Um módulo por API (ex.: `api/pc.js`, `api/ac.js`) ou camada unificada que chama as duas; tratar erros e timeout. |
+| **Cache local** | AsyncStorage ou cache em memória para reduzir chamadas e melhorar performance (perfil, lista de vagas). |
+| **Segurança** | Usar HTTPS; não armazenar senhas no app; seguir recomendações das APIs (tokens, refresh). |
+
+O **banco de dados** de perfil, vagas, documentos, testes e cursos **vem das APIs do PC e do AC**, não é criado nem mantido pelo projeto.
+
+### 2.5 Backend complementar (Node.js) – apenas para o que PC/AC não oferecem
+
+Se o projeto implementar feed, chat e networking, será necessário um backend próprio **apenas** para esses recursos:
 
 | Item | Escolha | Observação |
 |------|---------|------------|
 | Runtime | Node.js | Exigência do projeto |
-| Framework HTTP | Express ou Fastify | Rotas, middleware, tratamento de erros |
-| Linguagem | JavaScript ou TypeScript | Consistência com o app |
-| Autenticação | JWT (access + refresh opcional) | Login/registro; renovação sem re-login |
-| Validação | Joi ou Zod | Body, query, params em todas as rotas |
-| Banco de dados | PostgreSQL ou MongoDB | PostgreSQL recomendado para relações (perfil, vagas, conexões); definir modelo de dados cedo |
-| ORM/Query | Prisma ou TypeORM (SQL) / Mongoose (NoSQL) | Migrações e modelo único |
-| Armazenamento de arquivos | Disco local ou S3-compatible (MinIO, AWS S3) | Documentos e imagens; política de retenção e LGPD |
-| Chat em tempo real | WebSockets (Socket.io ou ws) ou serviço (Firebase, Pusher) | Definir na fase de chat |
-| Filas (opcional) | Bull (Redis) ou similar | Envio de e-mail, processamento de documentos, alertas |
+| Uso | Chat, feed, conexões, grupos | Perfil, vagas, documentos, testes, cursos = APIs PC e AC |
+| Banco de dados | PostgreSQL ou MongoDB | Apenas para mensagens, posts, conexões, grupos |
+| Autenticação | Pode delegar ao PC (token) ou manter sessão própria vinculada ao usuário do PC/AC | Definir com a disponibilidade das APIs |
+| Chat em tempo real | WebSockets (Socket.io ou ws) ou Firebase/Pusher | Só para mensagens do app |
 
-### 2.4 Segurança (transversal)
+### 2.6 Segurança (transversal)
 
 - **HTTPS** em produção.
 - **Senhas:** hash com bcrypt (ou argon2); nunca em texto puro.
@@ -81,7 +120,7 @@ Requisitos transversais em todas as fases: **segurança (API, criptografia, LGPD
 - **Token:** tempo de vida curto para access token; refresh token opcional com rotação.
 - **LGPD:** consentimento, finalidade, mínimo de dados; documentação de base legal e retenção.
 
-### 2.5 Requisitos não funcionais (do projeto)
+### 2.7 Requisitos não funcionais (do projeto)
 
 - **Bateria e memória:** evitar polling; usar WebSocket ou push para notificações; otimizar listas (virtualização) e imagens.
 - **Responsividade:** layouts flexíveis (Dimensions, percentuais, breakpoints se necessário); testar em vários tamanhos de tela.
@@ -94,15 +133,15 @@ Requisitos transversais em todas as fases: **segurança (API, criptografia, LGPD
 
 ### 3.1 Repositório (monorepo ou separado)
 
-**Opção A – Monorepo (recomendado para trabalho acadêmico):**
+**Opção A – Monorepo (recomendado):**
 
 ```
 TrabalhoExetensionista/
 ├── README.md
 ├── docs/                    # documentação (já existente)
-├── app/                     # React Native
+├── app/                     # React Native (obrigatório)
 │   ├── src/
-│   │   ├── api/
+│   │   ├── api/             # clientes para API do PC e API do AC (+ complementar se houver)
 │   │   ├── components/
 │   │   ├── contexts/
 │   │   ├── navigation/
@@ -113,7 +152,7 @@ TrabalhoExetensionista/
 │   │   └── utils/
 │   ├── App.tsx
 │   └── package.json
-├── api/                     # Node.js
+├── api/                     # Node.js (opcional – só para feed, chat, networking se não vierem do PC/AC)
 │   ├── src/
 │   │   ├── controllers/
 │   │   ├── middlewares/
@@ -126,7 +165,7 @@ TrabalhoExetensionista/
 └── package.json             # scripts raiz (opcional)
 ```
 
-**Opção B – Dois repositórios:** `app-veteranos` (React Native) e `api-veteranos` (Node.js). Útil se backend e frontend forem entregues por times ou prazos diferentes.
+**Fonte dos dados:** Perfil, vagas, documentos, testes e cursos vêm das **APIs do PC e do AC**; o app consome essas APIs. A pasta `api/` só é necessária para funcionalidades que as APIs do PC/AC não oferecem (ex.: feed, chat, conexões).
 
 ### 3.2 App (React Native)
 
@@ -154,55 +193,54 @@ As fases estão ordenadas por **dependência lógica** e **prioridade de negóci
 
 ### Fase 0: Fundação e ambiente (sprint 0)
 
-**Objetivo:** Projeto rodando (app + API + BD), autenticação mínima e deploy local.
+**Objetivo:** App rodando; integração com as **APIs do PC e do AC** (fonte dos dados); autenticação conforme ofertada por essas APIs.
 
 | # | Tarefa | Responsável técnico | Entregável |
 |---|--------|---------------------|------------|
 | 0.1 | Criar projeto React Native (Android); configurar Android Studio e SDK | Frontend | App abre em emulador/dispositivo |
 | 0.2 | Configurar navegação (stack + tab ou drawer inicial) e tema básico | Frontend | Navegação e tela placeholder |
-| 0.3 | Criar projeto Node.js (Express/Fastify); estrutura de pastas (routes, controllers, services, models) | Backend | API responde em localhost |
-| 0.4 | Escolher e configurar banco (PostgreSQL ou MongoDB); definir primeiras entidades (User, Profile básico) | Backend | Migrações/schemas iniciais |
-| 0.5 | Implementar registro e login (e-mail/senha); emissão de JWT; rota de “me” | Backend | Post /auth/register, /auth/login, GET /me |
-| 0.6 | Tela de login/registro no app; salvar token (AsyncStorage); cliente API com interceptor de token | Frontend | Fluxo login → tela inicial |
-| 0.7 | Detecção de rede (NetInfo); aviso “conexão necessária” quando offline | Frontend | Componente ou tela de “sem internet” |
-| 0.8 | Documentar ambiente (README no app e na API): como rodar, variáveis de ambiente | Todos | README atualizado |
+| 0.3 | Obter documentação das APIs do **PC** e do **AC** (endpoints, autenticação, formatos) | Todos | Documento ou links das APIs |
+| 0.4 | Implementar clientes HTTP no app para **API do PC** e **API do AC** (baseURL, headers, tratamento de erro) | Frontend | Módulos `api/pc` e `api/ac` (ou equivalente) |
+| 0.5 | Integrar login/registro com a **API do PC** (ou fluxo definido pelas plataformas); salvar token/sessão (AsyncStorage); tela de login no app | Frontend | Fluxo login → tela inicial usando dados do PC/AC |
+| 0.6 | Detecção de rede (NetInfo); aviso “conexão necessária” quando offline | Frontend | Componente ou tela de “sem internet” |
+| 0.7 | *(Opcional)* Se houver backend complementar (feed/chat): criar projeto Node.js e estrutura; senão, pular para as fases de consumo | Backend | API complementar só se necessário |
+| 0.8 | Documentar ambiente (README): como rodar o app, URLs das APIs PC e AC, variáveis de ambiente | Todos | README atualizado |
 
-**Critério de conclusão:** Usuário se registra e faz login no app; API valida JWT e retorna dados do usuário.
+**Critério de conclusão:** Usuário faz login no app usando a API do PC (e/ou AC); app consome endpoints das duas APIs; aviso de conectividade funcionando.
 
 ---
 
 ### Fase 1: Perfil profissional unificado (prioridade alta)
 
-**Objetivo:** Perfil completo (currículo online) no app, alinhado ao PC + LinkedIn.
+**Objetivo:** Perfil completo (currículo online) no app, consumindo a **API do PC** (perfil, documentos, testes). Dados vêm do PC; o app não possui banco próprio para perfil.
 
 | # | Tarefa | Entregável |
 |---|--------|------------|
-| 1.1 | Modelar e implementar entidade Perfil no backend (foto, banner, headline, sobre, experiência, educação, skills, links); CRUD e GET público por ID | API de perfil; perfil editável |
-| 1.2 | Tela “Meu perfil” (visualização) e “Editar perfil” (formulários por seção) | Telas de perfil e edição |
-| 1.3 | Upload de foto de perfil e banner; armazenamento no servidor; exibição no app | Fotos no perfil |
-| 1.4 | Seções: Experiência profissional, Educação, Soft/Hard Skills, Área/Cargo pretendido, Informações complementares, Links | Todas as seções do perfil no app e na API |
-| 1.5 | Documentos: modelo de dados (tipo, arquivo, usuário); upload e listagem; tipos conforme PC (CT, reservista, atestado, etc.) | API e telas de documentos |
-| 1.6 | Testes: modelo (lógica, interpretação, personalidade); persistir respostas e resultado; exibir no perfil (resumo ou “realizou testes”) | Fluxo de testes no app e na API |
+| 1.1 | Consumir endpoints da **API do PC** para perfil (GET/atualização); mapear campos: foto, banner, headline, sobre, experiência, educação, skills, links | App exibe e edita perfil via API do PC |
+| 1.2 | Tela “Meu perfil” (visualização) e “Editar perfil” (formulários por seção); enviar alterações para a API do PC | Telas de perfil e edição no app |
+| 1.3 | Upload de foto de perfil e banner via **API do PC** (conforme contrato da API); exibição no app | Fotos no perfil |
+| 1.4 | Seções: Experiência profissional, Educação, Soft/Hard Skills, Área/Cargo pretendido, Informações complementares, Links – todos via API do PC | Todas as seções do perfil no app |
+| 1.5 | Documentos: consumir upload e listagem da **API do PC** (tipos: CT, reservista, atestado, etc.); telas de envio e listagem no app | Telas de documentos no app |
+| 1.6 | Testes (lógica, interpretação, personalidade): consumir endpoints da **API do PC** para realizar e exibir resultado; resumo no perfil | Fluxo de testes no app via API do PC |
 
-**Critério de conclusão:** Candidato preenche perfil completo, envia documentos e realiza pelo menos um tipo de teste; perfil visível (próprio e, se aplicável, público).
+**Critério de conclusão:** Candidato vê e edita perfil completo, envia documentos e realiza testes via API do PC; perfil visível no app (dados do PC).
 
 ---
 
 ### Fase 2: Sistema de vagas – candidato e empresa (prioridade alta)
 
-**Objetivo:** Buscar vagas, candidatar, salvar e alertas (candidato); publicar vagas e ver candidatos com filtros (empresa).
+**Objetivo:** Vagas e candidaturas consumindo **API do PC** (candidato) e **API do AC** (empresa). Dados vêm das APIs; o app não possui banco próprio para vagas.
 
 | # | Tarefa | Entregável |
 |---|--------|------------|
-| 2.1 | Modelar Vagas (empresa, título, descrição, área, cargo, cidade, estado, requisitos, data); CRUD para empresa | API de vagas |
-| 2.2 | Candidaturas: vínculo usuário–vaga, status, data; evitar duplicidade | API de candidaturas |
-| 2.3 | Listar vagas com filtros (área, cargo, cidade, estado); paginação | Busca de vagas no app |
-| 2.4 | Tela “Minhas candidaturas”; candidatura rápida (um toque) e detalhe da vaga/empresa | Fluxo candidato |
-| 2.5 | Salvar vagas (favoritos) e alertas (preferências por área/cargo/região); notificação ou lista “Vagas para você” | Salvos e alertas |
-| 2.6 | Lado empresa: listar “Veteranos em destaque” (perfis públicos) com filtros (área, cargo, cidade, estado) | API e tela de busca de candidatos |
-| 2.7 | Empresa: criar e editar vagas; listar candidatos por vaga (perfil resumido + link para perfil completo) | Fluxo empresa no app |
+| 2.1 | **Candidato:** consumir **API do PC** para listar oportunidades (vagas) e “minhas candidaturas”; mapear filtros se a API oferecer | Busca de vagas e candidaturas no app via PC |
+| 2.2 | Candidatura rápida e detalhe da vaga/empresa; enviar candidatura via **API do PC** | Fluxo candidato no app |
+| 2.3 | Salvar vagas (favoritos) e alertas: implementar no app (AsyncStorage) ou consumir endpoint do PC se existir | Salvos e alertas no app |
+| 2.4 | **Empresa:** consumir **API do AC** para “Veteranos em destaque” com filtros (área, cargo, cidade, estado) | Tela de busca de candidatos no app via AC |
+| 2.5 | **Empresa:** consumir **API do AC** para criar/editar “Minhas Vagas” e listar candidatos por vaga | Fluxo empresa no app via AC |
+| 2.6 | Unificar experiência no app: mesma navegação para candidato (dados do PC) e empresa (dados do AC), com troca de contexto se necessário | App integrado PC + AC para vagas |
 
-**Critério de conclusão:** Candidato busca vagas, candidata-se e vê candidaturas; empresa publica vagas e visualiza candidatos com filtros.
+**Critério de conclusão:** Candidato busca vagas e candidata-se via API do PC; empresa publica vagas e vê candidatos via API do AC; dados vêm apenas das APIs.
 
 ---
 
@@ -348,11 +386,12 @@ Segurança, performance, LGPD e conectividade em todas as fases ◄────�
 
 | Risco | Mitigação |
 |-------|-----------|
-| Integração com PC/AC reais | Definir cedo se haverá API oficial ou importação; senão, app standalone com dados próprios |
-| Escopo grande | Manter MVP nas fases 0–5; fases 6–7 com escopo reduzido se necessário |
-| Chat em tempo real complexo | Começar com polling ou Firebase; migrar para WebSocket próprio depois se precisar |
-| Armazenamento de documentos (LGPD) | Política de retenção e exclusão; criptografia; acesso apenas autorizado |
-| Performance em listas longas | Virtualização (FlatList com windowSize); paginação em todas as listas |
+| **Dependência das APIs do PC e do AC** | Garantir documentação e ambiente de homologação; definir fallback (mensagem ao usuário, cache) se API estiver indisponível; tratar erros e timeout no app. |
+| Disponibilidade/contrato das APIs | Confirmar com PC e AC acesso às APIs (chaves, CORS, limites); se não houver API pública, considerar mock ou dados demonstração para o trabalho. |
+| Escopo grande | Manter MVP nas fases 0–5; fases 6–7 com escopo reduzido se necessário. |
+| Chat em tempo real (backend complementar) | Começar com polling ou Firebase; migrar para WebSocket próprio depois se precisar. |
+| Documentos sensíveis (LGPD) | Dados e documentos ficam no PC/AC; app apenas exibe/envia; seguir políticas das plataformas e consentimento. |
+| Performance em listas longas | Virtualização (FlatList com windowSize); paginação; cache local das respostas das APIs quando fizer sentido. |
 
 ---
 
