@@ -9,6 +9,7 @@ docs/
 ├── README.md                      (este arquivo)
 ├── Plano_Desenvolvimento.md       → Plano completo: arquitetura, fases e ordem de implementação
 ├── Relatorio_Projeto.md           → Relatório completo: escopo, backlog e prioridades
+├── Roteiro_Extensao_Mapa.md       → Mapeamento: o que já temos do roteiro de extensão (diagnóstico, planejamento, encerramento)
 ├── IdeiaPrincipalDotrabalho.md   → Ideia principal, arquitetura e referência LinkedIn
 ├── Correlacao_PC_AC_LinkedIn.md   → Correlação PC × AC × LinkedIn (base do backlog)
 ├── analise/                       → Análise das plataformas de referência
